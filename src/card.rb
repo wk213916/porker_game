@@ -6,19 +6,14 @@ class Card
   end
 
   def get_notation
-    return "#{@rank}#{@suit}"
+    "#{@rank}#{@suit}"
   end
 
-  def has_same_suit(pair)
-    return true if self.suit == pair.suit
+  def has_same_suit?(card)
+    self.suit == card.suit
   end
 
-  def has_same_rank(pair)
-    return true if self.rank == pair.rank
+  def has_same_rank?(card)
+    self.rank == card.rank
   end
 end
-
-first_card = Card.new("♡","3")
-second_card = Card.new("♡", "8")
-first_card.has_same_suit(second_card)
-first_card.has_same_suit(second_card)
