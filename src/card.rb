@@ -7,21 +7,31 @@ class Card
     @rank = rank
   end
 
-  def get_notation
+  def notation
     "#{@rank}#{@suit}"
   end
 
   def has_same_rank?(card)
-    self.rank == card.rank
+    @rank == card.rank
   end
 
   def has_same_suit?(card)
-    self.suit == card.suit
+    @suit == card.suit
+  end
+
+  def is_series?(card)
+    return true if @rank == RankPicture::A && card.rank == RankPicture::K
+    return true if @rank == RankPicture::K && card.rank == RankPicture::A
+    @rank + 1 == card.rank || card.rank + 1 == @rank
   end
 
   def check_hand(card)
-    if has_same_rank?(card)
+    if is_series?(card) && has_same_suit?(card)
+      Hand::StraightFlash
+    elsif has_same_rank?(card)
       Hand::Pair
+    elsif is_series?(card)
+      Hand::Straight
     elsif has_same_suit?(card)
       Hand::Flash
     else
@@ -30,7 +40,6 @@ class Card
   end
 end
 
-♧three = Card.new("♧", 3)
-♧four = Card.new("♧", 4)
-
-♧three.check_hand(♧four)
+# card = Card.new("♧", RankPicture::A)
+# other_card = Card.new("♡", RankPicture::K)
+# card.is_series?(other_card)
