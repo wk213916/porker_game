@@ -4,32 +4,47 @@ require_relative "card.rb"
 class Hand
   attr_reader :cards
   #該当するオブジェクトの外部から、属性を書き換える必要があるので、accessorを用いる
-  attr_accessor :porker_role, :winning
+  attr_accessor :role, :winning, :card_scores
   def initialize(first_card, second_card)
     @cards = []
     @cards << first_card
     @cards << second_card
+    self.set_card_scores
   end
 
-  def judge_result(second_hand)
-    if second_hand.porker_role[:hand_score] < @porker_role[:hand_score]
+  def set_card_scores
+    @cards = @cards.sort_by!{|card| card.rank}.reverse
+    @card_scores = @cards.map{|card| card.rank}
+  end
+
+# ハイカード、フラッシュの場合、一応ペアも可能
+  def card_score_judge(second_hand)
+    @card_scores.each_with_index do |card_score, i|
+      if second_hand.card_scores[i] < card_score
+        @winning = GameResult::Win
+        second_hand.winning = GameResult::Lose
+      elsif second_hand.card_scores[i] > card_score
+        @winning = GameResult::Lose
+        second_hand.winning = GameResult::Win
+      else
+        @winning = GameResult::Draw
+        second_hand.winning = GameResult::Draw
+      end
+    end
+  end
+
+# ストレート、ストレートフラッシュの場合、ペアも可能
+  def card_score_judge_straight(second_hand)
+    if second_hand.card_scores.inject(0) {|sum, card_score| sum += card_score} < @card_scores.inject(0) {|sum, card_score| sum += card_score}
       @winning = GameResult::Win
       second_hand.winning = GameResult::Lose
-    elsif second_hand.porker_role[:hand_score] > @porker_role[:hand_score]
+    elsif second_hand.card_scores.inject(0) {|sum, card_score| sum += card_score} > @card_scores.inject(0) {|sum, card_score| sum += card_score}
       @winning = GameResult::Lose
       second_hand.winning = GameResult::Win
     else
       @winning = GameResult::Draw
       second_hand.winning = GameResult::Draw
     end
-    @winning
   end
+
 end
-
-first_hand = Hand.new(Card.new("♤", 6), Card.new("♧", 7))
-second_hand = Hand.new(Card.new("♤", RankPicture::A), Card.new("♧", RankPicture::A))
-
-first_hand.porker_role = first_hand.cards[0].check_hand_card(first_hand.cards[1])
-second_hand.porker_role = second_hand.cards[0].check_hand_card(second_hand.cards[1])
-
-first_hand.judge_result(second_hand)
