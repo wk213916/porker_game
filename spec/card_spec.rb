@@ -52,30 +52,6 @@ describe "Card" do
     end
   end
 
-  describe "役の判定" do
-    context "rank が同じ場合" do
-      ♤four = Card.new("♤", 4)
-      ♧four = Card.new("♧", 4)
-      it "ペアを返す" do
-        expect(♤four.check_hand(♧four)).to eq Hand::Pair
-      end
-    end
-    context "suit が同じ場合" do
-      ♤four = Card.new("♤", 4)
-      ♤five = Card.new("♤", 6)
-      it "フラッシュを返す" do
-        expect(♤four.check_hand(♤five)).to eq Hand::Flash
-      end
-    end
-    context "2つとも異なる場合" do
-      ♤four = Card.new("♤", 4)
-      ♧five = Card.new("♧", 6)
-      it "ハイカードを返す" do
-        expect(♤four.check_hand(♧five)).to eq Hand::HighCard
-      end
-    end
-  end
-
   describe "has_combinationメソッドの挙動" do
     context "連番の場合" do
       ♤four = Card.new("♤", 4)
@@ -100,7 +76,28 @@ describe "Card" do
     end
   end
 
-  describe "役の判定の追加" do
+  describe "役の判定" do
+    context "rank が同じ場合" do
+      ♤four = Card.new("♤", 4)
+      ♧four = Card.new("♧", 4)
+      it "ペアを返す" do
+        expect(♤four.check_hand(♧four)).to eq Hand::Pair
+      end
+    end
+    context "suit が同じ場合" do
+      ♤four = Card.new("♤", 4)
+      ♤five = Card.new("♤", 6)
+      it "フラッシュを返す" do
+        expect(♤four.check_hand(♤five)).to eq Hand::Flash
+      end
+    end
+    context "2つとも異なる場合" do
+      ♤four = Card.new("♤", 4)
+      ♧five = Card.new("♧", 6)
+      it "ハイカードを返す" do
+        expect(♤four.check_hand(♧five)).to eq Hand::HighCard
+      end
+    end
     context "rankが連番でsuitも同じ場合" do
       ♤four = Card.new("♤", 4)
       ♤five = Card.new("♤", 5)
