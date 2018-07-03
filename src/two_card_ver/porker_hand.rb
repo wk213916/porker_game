@@ -1,3 +1,10 @@
+module Suit
+  Spade = "♤"
+  Clover = "♧"
+  Heart = "♡"
+  Diamond = "♤"
+end
+
 module RankPicture
   J = 11.freeze
   Q = 12.freeze
@@ -17,4 +24,5 @@ module GameResult
   Win = 1
   Lose = -1
   Draw = 0
+  Unknown = -9999
 end
