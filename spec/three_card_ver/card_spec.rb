@@ -22,8 +22,10 @@ describe "Card" do
     context "suitが同じである場合" do
       first_card = Card.new("♡",3)
       second_card = Card.new("♡", 8)
+      third_cardm= Card.new("♡", 5)
+      cards = [first_card, second_card, third_card]
       it "trueを返す" do
-        expect(first_card.has_same_suit?(second_card)).to eq true
+        expect(cards.has_same_suit?).to eq true
       end
     end
     context "suitが異なる場合" do
