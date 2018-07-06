@@ -18,7 +18,7 @@ class ThreeCardPorkerCard < Card
 
   def is_series?(*orderd_rank_cards)
     # return true if @rank == RankPicture::Q && second_card.rank == RankPicture::K && third_card.rank == RankPicture::A
-    orderd_rank_cards[0].rank == @rank + 1 && orderd_rank_cards[1].rank == orderd_rank_cards[0].rank + 1
+    @rank + 1 == orderd_rank_cards[0].rank && orderd_rank_cards[0].rank + 1 == orderd_rank_cards[1].rank
   end
 
 end
