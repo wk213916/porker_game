@@ -25,6 +25,9 @@ describe "Hand" do
         expect(hand.is_series_card_role?). to eq false
       end
     end
+    describe "ストレートとストレートフラッシュの区別" do
+      
+    end
 
   end
 end

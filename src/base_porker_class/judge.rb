@@ -1,4 +1,4 @@
-require_relative 'porker_hand.rb'
+require_relative '../base_porker_class/porker_hand.rb'
 require_relative 'player.rb'
 
 class Judge
