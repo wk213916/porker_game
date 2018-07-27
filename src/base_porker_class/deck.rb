@@ -12,8 +12,8 @@ class Deck
 
   def build_deck!
     [Suit::Spade, Suit::Clover, Suit::Heart, Suit::Diamond].each do |suit|
-      (1..13).each do |rank|
-        deck_cards << Card.new(suit, rank)
+      CardRank::AllRank.each do |card_rank|
+        deck_cards << Card.new(suit, card_rank[:rank], card_rank[:score])
       end
     end
     deck_cards.shuffle!

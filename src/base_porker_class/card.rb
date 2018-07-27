@@ -1,10 +1,11 @@
 require_relative "porker_hand.rb"
 
 class Card
-  attr_reader :suit, :rank
-  def initialize(suit,rank)
+  attr_reader :suit, :rank, :score
+  def initialize(suit, rank, score)
     @suit = suit
     @rank = rank
+    @score = score
   end
 
   def notation

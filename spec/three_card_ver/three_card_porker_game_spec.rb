@@ -9,7 +9,7 @@ describe "Game" do
   let(:player) do
     Player.new(
       ThreeCardPorkerHand.new(
-        player_first_card, player_second_card, player_third_card
+        [player_first_card, player_second_card, player_third_card]
       )
     )
   end
@@ -20,7 +20,7 @@ describe "Game" do
   let(:cpu) do
     Player.new(
       ThreeCardPorkerHand.new(
-        cpu_first_card, cpu_second_card, cpu_third_card
+        [cpu_first_card, cpu_second_card, cpu_third_card]
       )
     )
   end
@@ -40,12 +40,12 @@ describe "Game" do
     )
   end
   describe "生成されたときに必要な値を持つ" do
-    let(:player_first_card) { Card.new(Suit::Spade, 10) }
-    let(:player_second_card) { Card.new(Suit::Clover, 10) }
-    let(:player_third_card) { Card.new(Suit::Clover, 10) }
-    let(:cpu_first_card) { Card.new(Suit::Spade, 5) }
-    let(:cpu_second_card) { Card.new(Suit::Clover, 4) }
-    let(:cpu_third_card) { Card.new(Suit::Diamond, 2) }
+    let(:player_first_card) { Card.new(Suit::Spade, CardRank::Rank10[:rank], CardRank::Rank10[:score]) }
+    let(:player_second_card) { Card.new(Suit::Clover, CardRank::Rank10[:rank], CardRank::Rank10[:score]) }
+    let(:player_third_card) { Card.new(Suit::Clover, CardRank::Rank10[:rank], CardRank::Rank10[:score]) }
+    let(:cpu_first_card) { Card.new(Suit::Spade, CardRank::Rank5[:rank], CardRank::Rank5[:score]) }
+    let(:cpu_second_card) { Card.new(Suit::Clover, CardRank::Rank4[:rank], CardRank::Rank4[:score]) }
+    let(:cpu_third_card) { Card.new(Suit::Diamond, CardRank::Rank2[:rank], CardRank::Rank2[:score]) }
     it "playerが生成される" do
       expect(game.player).to be game.player
       expect(game.player).to be_an_instance_of(Player)
@@ -56,19 +56,19 @@ describe "Game" do
     end
     it "judgeが生成される" do
       expect(game.judge).to be game.judge
-      expect(game.judge).to be_an_instance_of(Judge)
+      expect(game.judge).to be_an_instance_of(ThreeCardPorkerJudge)
     end
   end
   describe "judge_resultメソッドの挙動" do
     before do
       game.result
     end
-    let(:player_first_card) { Card.new(Suit::Spade, 10) }
-    let(:player_second_card) { Card.new(Suit::Clover, 10) }
-    let(:player_third_card) { Card.new(Suit::Clover, 10) }
-    let(:cpu_first_card) { Card.new(Suit::Spade, 5) }
-    let(:cpu_second_card) { Card.new(Suit::Clover, 4) }
-    let(:cpu_third_card) { Card.new(Suit::Diamond, 2) }
+    let(:player_first_card) { Card.new(Suit::Spade, CardRank::Rank10[:rank], CardRank::Rank10[:score]) }
+    let(:player_second_card) { Card.new(Suit::Clover, CardRank::Rank10[:rank], CardRank::Rank10[:score]) }
+    let(:player_third_card) { Card.new(Suit::Clover, CardRank::Rank10[:rank], CardRank::Rank10[:score]) }
+    let(:cpu_first_card) { Card.new(Suit::Spade, CardRank::Rank5[:rank], CardRank::Rank5[:score]) }
+    let(:cpu_second_card) { Card.new(Suit::Clover, CardRank::Rank4[:rank], CardRank::Rank4[:score]) }
+    let(:cpu_third_card) { Card.new(Suit::Diamond, CardRank::Rank2[:rank], CardRank::Rank2[:score]) }
     it "judgeが判定したplayerの役を返す" do
       expect(game.player.hand.role).to eq ThreeCardPorkerHandRole::ThreeCard
     end
