@@ -1,4 +1,5 @@
 require_relative "porker_hand.rb"
+require_relative "player.rb"
 require_relative "card.rb"
 
 class Hand
